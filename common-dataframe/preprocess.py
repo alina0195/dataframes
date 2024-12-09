@@ -67,3 +67,18 @@ class Preprocess(pd.DataFrame):
     
     def find_rows(self, column_name:str, pattern:Union[str, int])->pd.DataFrame:
         pass
+
+
+    def drop_unwanted_rows(self, column_name: str, valid_values:list, inplace:bool):
+        if inplace==True:
+            self.df = self.df[self.df[column_name].isin(valid_values)]
+        else:
+            filtered_df = self.df[self.df[column_name].isin(valid_values)]
+            return filtered_df
+    
+    def drop_unwanted_rows(self, column_name: str, invalid_values:list, inplace:bool):
+        if inplace==True:
+            self.df = self.df[~self.df[column_name].isin(invalid_values)]
+        else:
+            filtered_df = self.df[~self.df[column_name].isin(invalid_values)]
+            return filtered_df
