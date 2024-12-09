@@ -40,6 +40,18 @@ class Preprocess(pd.DataFrame):
     def apply_transformation_on_rows(self, column_name:str, func: function):
         pass
     
+    def delete_rows_based_on_column_values(self, column_name:str, values:list):
+        """
+        Usually works for values as list of integers (eg. values=ids)
+        """
+        if column_name not in self.df.columns:
+            raise NameError('Column not found')
+        try:
+            self.df = self.df[~self.df[column_name].isin(values)]
+        except Exception as e:
+            print(f'Could not delete values {values} from column <<{column_name}>>:', str(e))
+    
+    
     def delete_extra_spaces(self, column_name:str)->bool:
         pass
     
